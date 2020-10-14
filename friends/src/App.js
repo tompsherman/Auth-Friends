@@ -1,10 +1,11 @@
 import React from 'react'
 import {BrowserRouter as Router, Route, Link, Switch} from 'react-router-dom'
+import PrivateRoute from './components/PrivateRoute'
 
 import FriendLogin from "./components/FriendLogin"
 import FriendList from "./components/FriendList"
 import FriendCard from './components/FriendCard'
-import FriendStat from "./components/FriendStats"
+import FriendStats from "./components/FriendStats"
 
 import './App.css'
 
@@ -21,8 +22,8 @@ const App = () => {
           </li>
         </ul>
         <Switch>
-          <Route path="/friends/:id" component={FriendStat}/>
-          <Route path= "/friends" component={FriendList} />
+          <PrivateRoute path="/friends/:id" component={FriendStats}/>
+          <PrivateRoute path= "/friends" component={FriendList} />
           <Route path= "/login" component={FriendLogin} />
         </Switch>
       </div>

@@ -7,7 +7,7 @@ const FriendCard = (props) => {
     const history = useHistory()
     const goToFriend = () => {
         history.push("/friends:id")
-        //history.push(`/friends/${props.friend.id}`)
+        // history.push(`/friends/${props.friend.id}`)
     }
     console.log("friend card props", props)
     return (

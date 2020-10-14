@@ -1,30 +1,36 @@
 import React, {useState} from 'react'
-import axios from 'axios'
+import {useHistory} from 'react-router-dom'
+import { axiosWithAuth } from '../utils/axiosWithAuth'
 
 
 const FriendLogin = () => {
-    const [state, setState] = useState({
+    const [login, setLogin] = useState({
         credentials: {
             username: "",
             password: "",
         }
     })
 
+    const history = useHistory()
+
     const submitHandler = (event) => {
         event.preventDefault();
-        console.log(event)
+        console.log(login.credentials)
         //axios call
-        axios.post('http://localhost:8888', state)
+        axiosWithAuth()
+            .post('/api/login', login.credentials)
             .then((response)=> {
-                console.log("this is the response:", response)
+                console.log(response.data)
+                window.localStorage.setItem("token", response.data.payload);
+                history.push("/friends")
             })
             .catch(error => console.log(`ERROR: ${error}`))
     }
 
     const changeHandler = (event) => {
-        setState({
+        setLogin({
             credentials: {
-                ...state,
+                ...login.credentials,
                 [event.target.name]: event.target.value
             }
         })
@@ -36,14 +42,14 @@ const FriendLogin = () => {
                 <input
                     name='username'
                     type='text'
-                    value={state.username}
+                    value={login.username}
                     onChange={changeHandler}
                     placeholder='enter username'
                 />
                 <input
                     name='password'
                     type='password'
-                    value={state.password}
+                    value={login.password}
                     onChange={changeHandler}
                     placeholder='enter password'
                 />

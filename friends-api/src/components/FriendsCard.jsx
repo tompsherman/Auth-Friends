@@ -5,10 +5,16 @@ const FriendsCard = () => {
     const history = useHistory()
 
     const editFriend = () => {
+        // `/put/api/friends${id}`
+
+        // push to FriendsCard
         history.push(`/edit-friends/:id`) // REMEMBER ':id' will become '${id}
     }
 
     const deleteFriend = () => {
+        // `/delete/api/friends${id}`
+
+        // push to FriendsList
         history.push(`/friends`)
     }
 

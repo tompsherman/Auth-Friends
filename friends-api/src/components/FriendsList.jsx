@@ -1,37 +1,35 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import {useHistory} from "react-router-dom"
 import FriendsCard from './FriendsCard'
-import axios from 'axios'
+import axiosWithAuth from '../utils/axiosWithAuth'
 import AddFriendsForm from './AddFriendsForm'
 
 const FriendsList = (props) => {
+    const [friendsList, setFriendsList] = useState([])
     const history = useHistory()
 
     useEffect(() => {
        // get/api/friends
-    //    axios
-    //     .get(url)
-    //     .then(response => console.log(error))
-    //     .catch(err => console.log(error))
+       axiosWithAuth()
+        .get('/api/friends')
+        .then(response => setFriendsList(response.data))
+        .catch(error => console.log(error))
     }, [])
 
-    const routeToFriendCard = () => {
-        history.push(`/friends/:id`) // REMEMBER- ':id' will become ${id}
-      }
+    console.log("friendsList: ", friendsList)
+
     return (
         <div>
 
             <AddFriendsForm />
 
             <h2> this is the friends list</h2>
-
-            {/* {
-                state.map(item => (
+           
+            {
+                friendsList.map(item => (
                 <FriendsCard key={item.id} friend={item} />
                 ))
-            } */}
-
-            <button onClick={routeToFriendCard}>see Friends Card</button>
+            }
 
         </div>
     )
